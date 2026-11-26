@@ -41,10 +41,16 @@
  		}
  		if (src != 0 && bpe == 4) {
  			for (int32_t y = 0; y < h; y++) {
-@@ -398,6 +418,16 @@
+@@ -398,6 +418,22 @@
  		}
  		s->release();
  	}
++	{
++		static int fb_logged;
++		if (!fb_logged++) {
++			printf("SWEET FB: composite gpu=%u cpu=%u fb_gpu=%d\n", gpu_layers, cpu_layers, sweet_fb_gpu);
++		}
++	}
 +	/* S21 GPU compositing marker: 16x16 top-left, green = GPU copied this frame, red = CPU */
 +	if (sweet_fb_gpu == 1 && (gpu_layers + cpu_layers) != 0) {
 +		uint32_t c = cpu_layers == 0 ? 0xFF00FF00u : 0xFFFF0000u;
